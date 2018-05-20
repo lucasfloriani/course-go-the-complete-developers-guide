@@ -7,4 +7,6 @@ func main() {
 
 	hand.print()
 	remainingDeck.print()
+
+	// fmt.Println(cards.toString())
 }

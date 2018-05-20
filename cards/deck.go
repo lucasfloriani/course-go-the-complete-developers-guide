@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 // Create a new type of 'deck'
 // which is a slice of strings
@@ -35,8 +38,19 @@ func (d deck) print() {
 	}
 }
 
+// fruits[startIndexIncluding:upToNotIncluding]
 func deal(d deck, handSize int) (deck, deck) {
 	return d[:handSize], d[handSize:]
 }
 
-// fruits[startIndexIncluding:upToNotIncluding]
+func (d deck) toString() string {
+	return strings.Join([]string(d), ",")
+}
+
+// []byte represents a slice of asci keys values of a character
+// in keyboard
+
+// Type convertion, transforms a type of data to another
+// []byte("Hi there!")
+// greeting := "Hi there!"
+// fmt.Println([]byte(greeting))
