@@ -8,9 +8,9 @@ type contactInfo struct {
 }
 
 type person struct {
-	firstName   string
-	lastName    string
-	contactInfo // Same as "contactInfo contactInfo"
+	firstName string
+	lastName  string
+	contactInfo
 }
 
 func main() {
@@ -23,8 +23,10 @@ func main() {
 		},
 	}
 
-	jim.print()
-	jim.updateName("Jimmy") // Dont change the name of type person
+	// &jim give the memory address of the value
+	// this variable is pointing at
+	jimPointer := &jim
+	jimPointer.updateName("Jimmy")
 	jim.print()
 }
 
@@ -32,6 +34,13 @@ func (p person) print() {
 	fmt.Printf("%+v\n", p)
 }
 
-func (p person) updateName(newFirstName string) {
-	p.firstName = newFirstName
+// *person declares the type of variable the receiver is,
+// a person pointer
+func (pointerToPerson *person) updateName(newFirstName string) {
+	// *person give me the value this
+	// memory address is pointing ate
+	(*pointerToPerson).firstName = newFirstName
 }
+
+// Turn "address" into "value" by "*address"
+// Turn "value" into "address" by "&value"
