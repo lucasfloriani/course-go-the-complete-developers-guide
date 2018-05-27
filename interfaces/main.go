@@ -2,24 +2,16 @@ package main
 
 import "fmt"
 
+// Definition to what other types need
+// to be a type bot
+type bot interface {
+	getGreeting() string
+}
+
+// They are of type bot too because they have
+// function getGreeting() string
 type englishBot struct{}
 type spanishBot struct{}
-
-func (englishBot) getGreeting() string {
-	// VERY custom logic for generating an english greeting
-	return "Hi there"
-}
-func (spanishBot) getGreeting() string {
-	// VERY custom logic for generating an spanish greeting
-	return "Hola!"
-}
-
-func printGreeting(eb englishBot) {
-	fmt.Println(eb.getGreeting())
-}
-func printGreeting(sb spanishBot) {
-	fmt.Println(sb.getGreeting())
-}
 
 func main() {
 	eb := englishBot{}
@@ -27,4 +19,15 @@ func main() {
 
 	printGreeting(eb)
 	printGreeting(sb)
+}
+
+func printGreeting(b bot) {
+	fmt.Println(b.getGreeting())
+}
+
+func (englishBot) getGreeting() string {
+	return "Hi there"
+}
+func (spanishBot) getGreeting() string {
+	return "Hola!"
 }
