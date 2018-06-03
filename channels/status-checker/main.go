@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"time"
 )
 
 func main() {
@@ -37,7 +38,19 @@ func main() {
 	// de uma outra go routine, fazendo assim um loop
 	// infinito
 	for link := range c {
-		go checkLink(link, c)
+		// Adicionado parâmetro na função literal
+		// para receber como valor e não como referência
+		// o link da iteração, se não for executado desta
+		// forma, ele ira utilizar a referência do mesmo
+		// valor varias vezes, executando assim a checagem
+		// da mesma url varias vezes.
+		// Resumindo, sempre evitar usar a mesma variavel
+		// (referência) que a main routine, podem ocorrer
+		// efeitos colaterais
+		go func(l string) {
+			time.Sleep(time.Second * 5)
+			checkLink(l, c)
+		}(link)
 	}
 }
 
